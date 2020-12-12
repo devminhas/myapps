@@ -1,0 +1,7 @@
+{
+  "name": "almirahmobileapp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Home</ion-title>
+   <ion-menu-button slot="start" color="primary">
+    <ion-icon name="menu-outline"></ion-icon>
+
+   </ion-menu-button>
+      <ion-avatar slot="end" style="margin-right: 10px;">
+        <img src="assets/images/almirahLogo.jpg">
+      </ion-avatar>
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- <div class="search"> -->
+    
+      <ion-searchbar debounce="500" animated="true" [(ngModel)]="searchTerm" (ionBlur)='cancel($event)' (ionChange)="search($event)" (ionCancel)="cancel($event)" placeholder="Search Your Product" ></ion-searchbar> 
+      <!-- <ion-icon name="search-outline" slot="start"></ion-icon> -->
+      <ion-grid ion-fixed  class="ion-padding" *ngIf='filtereItems.length>0'>
+        <ion-list style="position: absolute;margin-left: 20px;top:120px;z-index:10;width:80%;border-radius:10px;background-color: rgb(252, 252, 252);" lines="none">
+          <ion-item *ngFor=" let item of filtereItems" color="silver" 
+          [routerLink]="['/subcategory-products']" [queryParams]="{searchTerm:item}" routerDirection="forward">
+            {{item}}
+          </ion-item>
+        </ion-list>
+      </ion-grid>
+  <!-- </div> -->
+  <div class="title ion-padding">
+    <h2>Categories</h2>
+    <!-- <p>See All</p> -->
+  </div>
+
+  
+  <div class="category-slider">
+    <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }" pager="true">
+      <ion-slide *ngFor="let category of categories">
+        <ion-col  [routerLink]="['/category-products']" [queryParams]="{categoryId:category.id,categoryName:category.categoryName}" routerDirection="forward">
+          <h4>{{ category.categoryName }}</h4>
+          <img src="{{imageResourcePath}}{{ category.coverImage }}" onError="src = 'assets/images/fallback_image.png'" />
+        </ion-col>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+
+  <div class="title ion-padding">
+    <h2 class="font-bold">Best Sellers</h2>
+    <!-- <p>See all</p> -->
+  </div>
+
+  <div class="product-slider">
+    <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
+      <ion-slide *ngFor="let product of bestSellersList">
+        <ion-col class="ion-text-left" [routerLink]="['/product-details']" [queryParams]="{id:product.id}" routerDirection="forward">
+          <img src="{{imageResourcePath}}{{ product.coverImage }}" onError="src = 'assets/images/fallback_image.png'" />
+          <p>{{product.price |currency:'INR':'symbol-narrow':'1.0-0'}}</p>
+          <h6>{{ (product.productName.length>15)? (product.productName | slice:0:15)+'...':(product.productName) }}</h6>
+        </ion-col>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+  <div class="title ion-padding">
+    <h2 class="font-bold">New Arrivals</h2>
+    <!-- <p>See all</p> -->
+  </div>
+
+  <div class="product-slider">
+    <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
+      <ion-slide *ngFor="let product of productsList">
+        <ion-col class="ion-text-left" [routerLink]="['/product-details']" [queryParams]="{id:product.id}" routerDirection="forward">
+          <img src="{{imageResourcePath}}{{ product.coverImage }}" onError="src = 'assets/images/fallback_image.png'" />
+          <p>{{product.price |currency:'INR':'symbol-narrow':'1.0-0'}}</p>
+          <h6>{{ (product.productName.length>15)? (product.productName | slice:0:15)+'...':(product.productName) }}</h6>
+        </ion-col>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+</ion-content>

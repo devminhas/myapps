@@ -1,3 +1,37 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-split-pane contentId="main" >
+    <ion-menu side="start" type="overlay" contentId="main">
+      <ion-content>
+        <div class="main-list">
+          <ion-list id="inbox-list">
+
+            <ion-menu-toggle auto-hide="false">
+              <ion-item lines="none" 
+              [routerLink]="['/tabs/home']" routerDirection="root"
+               detail="false" class="ion-text-center"  routerLinkActive='selected'>
+                <ion-label>Home</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+           
+            <ion-menu-toggle auto-hide="false" *ngFor='let category of categories'>
+              <ion-item lines="none" 
+              [routerLink]="['/category-products']" [queryParams]="{categoryId:category.id,categoryName:category.categoryName}" routerDirection="forward"
+               detail="false" class="ion-text-center"  routerLinkActive='selected'>
+                <ion-label>{{category.categoryName}}</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+           
+          </ion-list>
+
+          <!-- Close Button -->
+          <ion-button fill="clear" color="dark" (click)="close()">
+            <ion-icon name="close-circle-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-content>
+    </ion-menu>
+
+    <ion-router-outlet id="main"></ion-router-outlet>
+  </ion-split-pane>
+ 
 </ion-app>

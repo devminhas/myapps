@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{categoryName}}</ion-title>
+    <ion-menu-button slot="start" color="primary">
+      <ion-icon name="menu-outline"></ion-icon>
+  
+     </ion-menu-button>
+        <ion-avatar slot="end">
+          <img src="assets/images/almirahLogo.jpg" style="margin-right: 10px;">
+        </ion-avatar>
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-content>
+ 
+<div *ngFor="let subCat of subCategoryProducts">
+  <ng-container *ngIf='subCat.products.length>0'>
+  <div class="title ion-padding">
+    <h2 class="font-bold" >{{subCat?.subCategoryName}}</h2>
+    <p  [routerLink]="['/subcategory-products']" [queryParams]="{subCategoryId:subCat?.subCategoryId,subCategoryName:subCat.subCategoryName}" routerDirection="forward">See all</p>
+  </div>
+
+  <div class="product-slider" >
+    <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
+      <ion-slide *ngFor="let product of subCat?.products">
+        <ion-col class="ion-text-left" [routerLink]="['/product-details']" [queryParams]="{id:product?.id}" routerDirection="forward">
+          <img src="{{imageResourcePath}}{{ product?.coverImage }}" />
+          <p> {{product?.price |currency:'INR':'symbol-narrow':'1.0-0'}}</p>
+          <h6>{{ (product?.productName?.length>15)? (product?.productName | slice:0:15)+'...':(product?.productName) }}</h6>
+        </ion-col>
+      </ion-slide>
+    </ion-slides>
+  </div>
+</ng-container>
+</div>
+
+</ion-content>

@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrl:"http://localhost:9090/almirahAdmin/shop/",
+  resourceUrl:"http://13.126.121.253/resources/images/"
 };
 
 /*
